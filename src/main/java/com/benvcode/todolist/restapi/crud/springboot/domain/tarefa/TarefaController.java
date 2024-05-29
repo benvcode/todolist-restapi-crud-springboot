@@ -21,7 +21,7 @@ public class TarefaController {
     private final TarefaService tarefaService;
     private final TarefaMapperImpl tarefaMapper;
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<TarefaDto> create(@RequestBody TarefaDto tarefaDto) {
         // 'ResponseEntity' representa uma resposta HTTP com código de status, cabeçalhos e corpo.
         // '@RequestBody' recebe e mapeia os dados do 'corpo de uma solicitação HTTP' enviados pelo cliente
@@ -35,7 +35,7 @@ public class TarefaController {
                 tarefaMapper.entityToDto(tarefaCriada));
     }
 
-    @GetMapping("/get-all")
+    @GetMapping
     public ResponseEntity<List<TarefaDto>> getAll() {
         List<Tarefa> tarefaList = tarefaService.getAll();
 
@@ -43,7 +43,7 @@ public class TarefaController {
         return ResponseEntity.ok(tarefaMapper.toListDto(tarefaList));
     }
 
-    @GetMapping("/get-by-id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<TarefaDto> getById(@PathVariable("id") Long id) {
         // '@PathVariable' para extrair o valor da variável 'id' no endpoint.
 
@@ -53,7 +53,7 @@ public class TarefaController {
         return ResponseEntity.ok(tarefaMapper.entityToDto(tarefa));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<BaseEntityDtoResponse> update(
             @PathVariable("id") Long id, @RequestBody TarefaDto tarefaDto) {
         Tarefa novaTarefa = tarefaService.update(id,
@@ -70,7 +70,7 @@ public class TarefaController {
         return ResponseEntity.ok(baseEntityDtoResponse);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<TarefaDto> delete(@PathVariable("id") Long id) {
         tarefaService.delete(id);
 
